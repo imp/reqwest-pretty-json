@@ -2,6 +2,8 @@
 name = "reqwest-pretty-json"
 version = "0.1.0"
 authors = ["Cyril Plisko <cyril.plisko@mountall.com>"]
+categories = ["web-programming::http-client", "value-formatting"]
+keywords = ["reqwest", "pretty", "json"]
 license = "Apache-2.0 OR MIT"
 readme = "README.md"
 repository = "https://gitlab.com/imp/reqwest-pretty-json.git"
