@@ -23,7 +23,7 @@ let data = vec![1, 2, 3];
 let client = Client::new();
 client
     .post()
-    .pretty_json(data)
+    .pretty_json(&data)
     .send();
 ```
 
