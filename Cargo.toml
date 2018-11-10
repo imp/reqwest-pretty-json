@@ -2,8 +2,11 @@
 name = "reqwest-pretty-json"
 version = "0.1.0"
 authors = ["Cyril Plisko <cyril.plisko@mountall.com>"]
+license = "Apache-2.0 OR MIT"
+readme = "README.md"
+repository = "https://gitlab.com/imp/reqwest-pretty-json.git"
 edition = "2018"
-description = "Easy way to emit prettified JSON body in via reqwest::RequestBuilder"
+description = "Easy way to emit prettified JSON body via reqwest::RequestBuilder"
 
 [dependencies]
 reqwest = "0.9"
