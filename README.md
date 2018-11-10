@@ -15,7 +15,6 @@ This, however, is less nice than the just letting `reqwest::RequestBuilder` do t
 Exactly for cases like that this crate augments `reqwest::RequestBuilder` with `pretty_json()` method.
 
 ```rust
-
 use reqwest::Client;
 use reqwest_pretty_json::PrettyJson;
 
