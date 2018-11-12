@@ -21,9 +21,10 @@ use reqwest_pretty_json::PrettyJson;
 let data = vec![1, 2, 3];
 let client = Client::new();
 client
-    .post()
+    .post("http://httpbin.org/post")
     .pretty_json(&data)
-    .send();
+    .send()
+    .unwrap();
 ```
 
 Under the hood it uses `serde_json::to_vec_pretty()` to serialize the data.
