@@ -44,8 +44,8 @@ where
 {
     /// Send a "pretty" JSON body.
     ///
-    /// Set the body to the "pretty" (human-friendly) JSON serialization of the passed value,
-    /// and also set the `Content-Type: application/json` header.
+    /// Set the HTTP request body to the "pretty" (human-friendly) JSON serialization
+    /// of the passed value, and also set the `Content-Type: application/json` header.
     ///
     /// ```rust
     /// # use reqwest::Error;
@@ -66,7 +66,7 @@ where
     ///
     /// # Errors
     ///
-    /// Same as `json()`. See `reqwest` for more details.
+    /// Same as [`reqwest::RequestBuilder::json`]. See [`reqwest`] for more details.
     fn pretty_json(self, json: &T) -> Self;
 }
 
