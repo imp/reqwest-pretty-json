@@ -1,3 +1,4 @@
+#![warn(rust_2018_idioms)]
 #![warn(clippy::pedantic)]
 #![deny(warnings, missing_debug_implementations)]
 #![doc(html_root_url = "https://docs.rs/reqwest-pretty-json/0.1.2")]
