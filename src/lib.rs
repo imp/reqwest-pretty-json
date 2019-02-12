@@ -34,6 +34,7 @@
 //! ```
 
 use reqwest::RequestBuilder;
+use reqwest::r#async::RequestBuilder as AsyncRequestBuilder;
 use serde::Serialize;
 use serde_json::to_vec_pretty;
 
@@ -71,6 +72,19 @@ where
 }
 
 impl<T> PrettyJson<T> for RequestBuilder
+where
+    T: Serialize + ?Sized,
+{
+    fn pretty_json(self, json: &T) -> Self {
+        let builder = self.json(json);
+        match to_vec_pretty(json) {
+            Ok(body) => builder.body(body),
+            Err(_) => builder,
+        }
+    }
+}
+
+impl<T> PrettyJson<T> for AsyncRequestBuilder
 where
     T: Serialize + ?Sized,
 {
