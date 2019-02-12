@@ -7,7 +7,7 @@ stages:
   - test
   - deploy
 
-.stable:cargo:
+stable:cargo:
   image: rustdocker/rust:stable
   <<: *cargo_test
 
