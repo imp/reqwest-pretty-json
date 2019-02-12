@@ -34,8 +34,8 @@
 //!     .build();
 //! ```
 
-use reqwest::RequestBuilder;
 use reqwest::r#async::RequestBuilder as AsyncRequestBuilder;
+use reqwest::RequestBuilder;
 use serde::Serialize;
 use serde_json::to_vec_pretty;
 
