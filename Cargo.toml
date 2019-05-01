@@ -1,6 +1,6 @@
 [package]
 name = "reqwest-pretty-json"
-version = "0.1.3" # remember to update html_root_url
+version = "0.9.0" # remember to update html_root_url
 authors = ["Cyril Plisko <cyril.plisko@mountall.com>"]
 categories = ["web-programming::http-client", "value-formatting"]
 keywords = ["reqwest", "pretty", "json"]
