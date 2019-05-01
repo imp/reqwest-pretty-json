@@ -1,6 +1,12 @@
-#![warn(rust_2018_idioms)]
 #![warn(clippy::pedantic)]
-#![deny(warnings, missing_debug_implementations)]
+#![warn(deprecated_in_future)]
+#![warn(future_incompatible)]
+#![warn(unreachable_pub)]
+#![warn(missing_debug_implementations)]
+#![warn(rust_2018_compatibility)]
+#![warn(rust_2018_idioms)]
+#![warn(unused)]
+#![deny(warnings)]
 #![doc(html_root_url = "https://docs.rs/reqwest-pretty-json/0.1.3")]
 
 //! [`reqwest`] provides an easy way of sending JSON-formatted body in the HTTP request and
