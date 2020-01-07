@@ -11,6 +11,12 @@ edition = "2018"
 description = "Easy way to emit prettified JSON body via reqwest::RequestBuilder"
 
 [dependencies]
-reqwest = "0.9"
+reqwest = { version = "0.10", features = ["json"] }
 serde = "1.0"
 serde_json = "1.0"
+
+[dev-dependencies]
+tokio = { version = "0.2", default-features = false, features = ["macros"] }
+[features]
+blocking = ["reqwest/blocking"]
+default = ["blocking"]

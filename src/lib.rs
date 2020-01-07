@@ -7,7 +7,7 @@
 #![warn(rust_2018_idioms)]
 #![warn(unused)]
 #![deny(warnings)]
-#![doc(html_root_url = "https://docs.rs/reqwest-pretty-json/0.9.0")]
+#![doc(html_root_url = "https://docs.rs/reqwest-pretty-json/0.10.0")]
 
 //! [`reqwest`] provides an easy way of sending JSON-formatted body in the HTTP request and
 //! it always emits terse on-line JSON representation.
@@ -40,8 +40,6 @@
 //!     .build();
 //! ```
 
-use reqwest::r#async::RequestBuilder as AsyncRequestBuilder;
-use reqwest::RequestBuilder;
 use serde::Serialize;
 use serde_json::to_vec_pretty;
 
@@ -55,19 +53,20 @@ where
     /// Set the HTTP request body to the "pretty" (human-friendly) JSON serialization
     /// of the passed value, and also set the `Content-Type: application/json` header.
     ///
-    /// ```rust
+    /// ```no_run
     /// # use reqwest::Error;
     /// # use std::collections::HashMap;
     /// use reqwest_pretty_json::PrettyJson;
     ///
-    /// # fn run() -> Result<(), Error> {
+    /// # async fn run() -> Result<(), Error> {
     /// let mut map = HashMap::new();
     /// map.insert("lang", "rust");
     ///
     /// let client = reqwest::Client::new();
     /// let res = client.post("http://httpbin.org")
     ///     .pretty_json(&map)
-    ///     .send()?;
+    ///     .send()
+    ///     .await?;
     /// # Ok(())
     /// # }
     /// ```
@@ -78,7 +77,7 @@ where
     fn pretty_json(self, json: &T) -> Self;
 }
 
-impl<T> PrettyJson<T> for RequestBuilder
+impl<T> PrettyJson<T> for reqwest::RequestBuilder
 where
     T: Serialize + ?Sized,
 {
@@ -91,7 +90,7 @@ where
     }
 }
 
-impl<T> PrettyJson<T> for AsyncRequestBuilder
+impl<T> PrettyJson<T> for reqwest::blocking::RequestBuilder
 where
     T: Serialize + ?Sized,
 {
@@ -107,27 +106,55 @@ where
 #[cfg(test)]
 mod tests {
     use std::collections::HashMap;
+    use std::error::Error;
 
-    use reqwest::{Client, StatusCode};
+    use reqwest::StatusCode;
     use serde_json::{to_string, to_string_pretty, to_value, Value};
 
     use super::*;
 
-    #[test]
-    fn add_pretty_json() {
-        let mut json_data = HashMap::new();
-        json_data.insert("foo", vec![1, 2, 3]);
+    #[tokio::test]
+    async fn pretty_json_async() -> Result<(), Box<dyn Error>> {
+        let mut data = HashMap::<_, Vec<u8>>::new();
+        data.insert("foo", vec![1, 2, 3]);
 
-        let body_should_be = to_string_pretty(&json_data).unwrap();
-        let body_shouldnt_be = to_string(&json_data).unwrap();
-        let value = to_value(&json_data).unwrap();
+        let body_should_be = to_string_pretty(&data)?;
+        let body_shouldnt_be = to_string(&data)?;
+        let value = to_value(&data)?;
 
-        let client = Client::new();
-        let mut response = client
+        let client = reqwest::Client::new();
+        let response = client
             .post("http://httpbin.org/post")
-            .pretty_json(&json_data)
+            .pretty_json(&data)
             .send()
-            .unwrap();
+            .await?;
+
+        assert_eq!(response.status(), StatusCode::OK);
+
+        let result: Value = response.json().await?;
+
+        assert_eq!(result["data"], body_should_be);
+        assert_ne!(result["data"], body_shouldnt_be);
+        assert_eq!(result["headers"]["Content-Type"], "application/json");
+        assert_eq!(result["json"], value);
+
+        Ok(())
+    }
+
+    #[test]
+    fn pretty_json_blocking() -> Result<(), Box<dyn Error>> {
+        let mut data = HashMap::new();
+        data.insert("foo", vec![1, 2, 3]);
+
+        let body_should_be = to_string_pretty(&data)?;
+        let body_shouldnt_be = to_string(&data)?;
+        let value = to_value(&data)?;
+
+        let client = reqwest::blocking::Client::new();
+        let response = client
+            .post("http://httpbin.org/post")
+            .pretty_json(&data)
+            .send()?;
 
         assert_eq!(response.status(), StatusCode::OK);
 
@@ -137,5 +164,7 @@ mod tests {
         assert_ne!(result["data"], body_shouldnt_be);
         assert_eq!(result["headers"]["Content-Type"], "application/json");
         assert_eq!(result["json"], value);
+
+        Ok(())
     }
 }
