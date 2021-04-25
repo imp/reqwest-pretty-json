@@ -7,7 +7,7 @@
 #![warn(rust_2018_idioms)]
 #![warn(unused)]
 #![deny(warnings)]
-#![doc(html_root_url = "https://docs.rs/reqwest-pretty-json/0.10.0")]
+#![doc(html_root_url = "https://docs.rs/reqwest-pretty-json/0.10.1")]
 
 //! [`reqwest`] provides an easy way of sending JSON-formatted body in the HTTP request and
 //! it always emits terse on-line JSON representation.
