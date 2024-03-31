@@ -1,13 +1,18 @@
-#![warn(clippy::pedantic)]
+#![cfg_attr(feature = "pedantic", warn(clippy::pedantic))]
+#![warn(clippy::use_self)]
+#![warn(clippy::map_flatten)]
+#![warn(clippy::map_unwrap_or)]
 #![warn(deprecated_in_future)]
 #![warn(future_incompatible)]
 #![warn(unreachable_pub)]
 #![warn(missing_debug_implementations)]
 #![warn(rust_2018_compatibility)]
+#![warn(rust_2021_compatibility)]
 #![warn(rust_2018_idioms)]
+#![warn(noop_method_call)]
+#![warn(trivial_casts)]
 #![warn(unused)]
 #![deny(warnings)]
-#![doc(html_root_url = "https://docs.rs/reqwest-pretty-json/0.11.1")]
 
 //! [`reqwest`] provides an easy way of sending JSON-formatted body in the HTTP request and
 //! it always emits terse on-line JSON representation.
