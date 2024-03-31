@@ -21,7 +21,7 @@
 //! to emit "pretty" JSON representation of your data structures. Key-Value data stores are one
 //! such use case and there may be others as well.
 //!
-//! In this case you won't be able to use [`reqwest::RequestBuilder.json`] method and will have to
+//! In this case you won't be able to use [`reqwest::RequestBuilder::json`] method and will have to
 //! manually serialize your data and set both the body of the request and Content-Type HTTP header.
 //!
 //! This crate provides convenient method to do just that.
