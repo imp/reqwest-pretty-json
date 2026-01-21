@@ -12,7 +12,7 @@ description = "Easy way to emit prettified JSON body via reqwest::RequestBuilder
 
 
 [dependencies]
-reqwest = { version = "0.12", default-features = false, features = ["json"] }
+reqwest = { version = "0.13", default-features = false, features = ["json"] }
 serde = "1.0"
 serde_json = "1.0"
 
@@ -24,3 +24,4 @@ tokio = { version = "1.0", default-features = false, features = ["macros"] }
 [features]
 blocking = ["reqwest/blocking"]
 default = ["blocking"]
+pedantic = []
